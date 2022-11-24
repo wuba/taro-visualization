@@ -1,6 +1,6 @@
 let instance;
 if (process.env.TARO_ENV === 'weapp') {
-  console.log(`env: ${process.env.TARO_ENV}`);
+  instance = require('./lib/mp');
 } else if (process.env.TARO_ENV === 'h5') {
   instance = require('./lib/web');
 } else {
