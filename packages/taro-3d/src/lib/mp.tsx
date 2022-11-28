@@ -11,17 +11,19 @@ export interface IProps {
 }
 const View3D = (props: IProps) => {
   useEffect(() => {
-    const query = Taro.createSelectorQuery();
-    query
-      .select(`#${props.canvasId ?? 'view3d'}`)
-      .node()
-      .exec((res) => {
-        const canvas = res[0].node;
-        const gl = canvas.getContext('webgl');
-        // @ts-ignore
-        gl.endFrameEXP = () => {};
-        !!props.onContextCreate && props.onContextCreate(gl);
-      });
+    setTimeout(() => {
+      const query = Taro.createSelectorQuery();
+      query
+        .select(`#${props.canvasId ?? 'view3d'}`)
+        .node()
+        .exec((res) => {
+          const canvas = res[0].node;
+          const gl = canvas.getContext('webgl');
+          // @ts-ignore
+          gl.endFrameEXP = () => {};
+          !!props.onContextCreate && props.onContextCreate(gl);
+        });
+    }, 0);
   }, []);
   return <Canvas canvasId={props.canvasId ?? 'view3d'} id={props.canvasId ?? 'view3d'} type="webgl" />;
 };
