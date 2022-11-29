@@ -1,6 +1,13 @@
-import { WebGLRenderer } from 'three';
+import { ColorRepresentation, OffscreenCanvas, WebGLRenderer, WebGLRendererParameters } from 'three';
+export interface IRendererParameters extends WebGLRendererParameters {
+  gl: WebGLRenderingContext;
+  pixelRatio?: number;
+  clearColor?: ColorRepresentation;
+  width?: number;
+  height?: number;
+}
 export class Renderer extends WebGLRenderer {
-  constructor({ gl: context, canvas, pixelRatio = 1, clearColor, width, height, ...props }) {
+  constructor({ gl: context, canvas, pixelRatio = 1, clearColor, width, height, ...props }: IRendererParameters) {
     const inputCanvas = canvas || {
       width: context.drawingBufferWidth,
       height: context.drawingBufferHeight,
@@ -10,7 +17,7 @@ export class Renderer extends WebGLRenderer {
       clientHeight: context.drawingBufferHeight
     };
     super({
-      canvas: inputCanvas,
+      canvas: inputCanvas as HTMLCanvasElement | OffscreenCanvas | undefined,
       context,
       ...props
     });
@@ -19,7 +26,6 @@ export class Renderer extends WebGLRenderer {
       this.setSize(width, height);
     }
     if (clearColor) {
-      // @ts-ignore: Type 'string' is not assignable to type 'number'.ts(2345)
       this.setClearColor(clearColor);
     }
   }

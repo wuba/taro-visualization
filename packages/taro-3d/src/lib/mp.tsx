@@ -1,11 +1,11 @@
-import { Canvas } from '@tarojs/components';
+import { Canvas, View, ViewProps } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import * as React from 'react';
 import { useEffect } from 'react';
 
 import { Renderer } from './renderer';
 
-export interface IProps {
+export interface IProps extends ViewProps {
   canvasId?: string;
   onContextCreate(gl: any): void;
 }
@@ -25,7 +25,12 @@ const View3D = (props: IProps) => {
         });
     }, 0);
   }, []);
-  return <Canvas canvasId={props.canvasId ?? 'view3d'} id={props.canvasId ?? 'view3d'} type="webgl" />;
+
+  return (
+    <View>
+      <Canvas canvasId={props.canvasId ?? 'view3d'} id={props.canvasId ?? 'view3d'} type="webgl" />
+    </View>
+  );
 };
 
 export default {
