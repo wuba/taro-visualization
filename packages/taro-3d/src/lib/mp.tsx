@@ -1,7 +1,7 @@
 import { Canvas, View, ViewProps } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import * as React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import { Renderer } from './renderer';
 
@@ -9,7 +9,12 @@ export interface IProps extends ViewProps {
   canvasId?: string;
   onContextCreate(gl: any): void;
 }
+
 const View3D = (props: IProps) => {
+  const { canvasId, onContextCreate, ...domProps } = useMemo(() => {
+    return { ...props };
+  }, [props]);
+
   useEffect(() => {
     setTimeout(() => {
       const query = Taro.createSelectorQuery();
@@ -27,8 +32,14 @@ const View3D = (props: IProps) => {
   }, []);
 
   return (
-    <View>
-      <Canvas canvasId={props.canvasId ?? 'view3d'} id={props.canvasId ?? 'view3d'} type="webgl" />
+    <View {...domProps}>
+      <Canvas
+        canvasId={props.canvasId ?? 'view3d'}
+        id={props.canvasId ?? 'view3d'}
+        type="webgl"
+        width="100%"
+        height="100%"
+      />
     </View>
   );
 };
