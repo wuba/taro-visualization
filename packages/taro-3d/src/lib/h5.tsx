@@ -1,11 +1,12 @@
 import { View, ViewProps } from '@tarojs/components';
 import React, { useEffect, useMemo, useRef } from 'react';
 
+import { ExpoWebGLRenderingContext } from './View3D.types';
 import { Renderer } from './renderer';
 
 export interface IProps extends ViewProps {
   canvasId?: string;
-  onContextCreate(gl: any): void;
+  onContextCreate(gl: ExpoWebGLRenderingContext): void;
 }
 
 export const View3D = (props: IProps) => {
@@ -24,8 +25,7 @@ export const View3D = (props: IProps) => {
       viewResizeObserver = new ResizeObserver((entries) => {
         canvas.height = entries[0].contentRect.height;
         canvas.width = entries[0].contentRect.width;
-        const gl = canvas.getContext('webgl');
-        // @ts-ignore
+        const gl = canvas.getContext('webgl') as ExpoWebGLRenderingContext;
         gl.endFrameEXP = () => {};
         !!props.onContextCreate && props.onContextCreate(gl);
       });

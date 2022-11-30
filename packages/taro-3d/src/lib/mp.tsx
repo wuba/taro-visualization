@@ -3,11 +3,12 @@ import Taro from '@tarojs/taro';
 import * as React from 'react';
 import { useEffect, useMemo } from 'react';
 
+import { ExpoWebGLRenderingContext } from './View3D.types';
 import { Renderer } from './renderer';
 
 export interface IProps extends ViewProps {
   canvasId?: string;
-  onContextCreate(gl: any): void;
+  onContextCreate(gl: ExpoWebGLRenderingContext): void;
 }
 
 const View3D = (props: IProps) => {
@@ -23,8 +24,7 @@ const View3D = (props: IProps) => {
         .node()
         .exec((res) => {
           const canvas = res[0].node;
-          const gl = canvas.getContext('webgl');
-          // @ts-ignore
+          const gl = canvas.getContext('webgl') as ExpoWebGLRenderingContext;
           gl.endFrameEXP = () => {};
           !!props.onContextCreate && props.onContextCreate(gl);
         });

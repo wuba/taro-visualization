@@ -1,101 +1,9 @@
-import { Component, ComponentClass } from 'react';
-
-// @docsMissing
-export type SurfaceCreateEvent = {
-  nativeEvent: {
-    exglCtxId: number;
-  };
-};
-
-// @needsAudit
-export type SnapshotOptions = {
-  /**
-   * Whether to flip the snapshot vertically.
-   * @default false
-   */
-  flip?: boolean;
-  /**
-   * Specify the framebuffer that we will be reading from.
-   * Defaults to underlying framebuffer that is presented in the view or the current framebuffer if context is headless.
-   */
-  framebuffer?: WebGLFramebuffer;
-  /**
-   * Rect to crop the snapshot. It's passed directly to `glReadPixels`.
-   */
-  rect?: {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-  };
-  /**
-   * Specifies what type of compression should be used and what is the result file extension.
-   * PNG compression is lossless but slower, JPEG is faster but the image has visible artifacts.
-   * > **Note:** When using WebP format, the iOS version will print a warning, and generate a `'png'` file instead.
-   * > It is recommendable to use platform dependant code in this case. You can refer to the [documentation on platform specific code](/versions/latest/react-native/platform-specific-code).
-   * @default 'jpeg'
-   */
-  format?: 'jpeg' | 'png' | 'webp';
-  /**
-   * A value in range `0` to `1.0` specifying compression level of the result image.
-   * `1.0` means no compression and `0` the highest compression.
-   * @default 1.0
-   */
-  compress?: number;
-};
-
-// @needsAudit
-export type GLSnapshot = {
-  /**
-   * URI to the snapshot.
-   */
-  uri: string | Blob | null;
-  /**
-   * Synonym for `uri`. Makes snapshot object compatible with `texImage2D`.
-   */
-  localUri: string;
-  /**
-   * Width of the snapshot.
-   */
-  width: number;
-  /**
-   * Height of the snapshot.
-   */
-  height: number;
-};
-
-// @docsMissing
 export interface ExpoWebGLRenderingContext extends WebGL2RenderingContext {
   contextId: number;
   endFrameEXP(): void;
   flushEXP(): void;
   __expoSetLogging(option: GLLoggingOption): void;
 }
-
-// @docsMissing
-export type ComponentOrHandle = null | number | Component<any, any> | ComponentClass<any>;
-
-// @needsAudit
-export type GLViewProps = {
-  /**
-   * A function that will be called when the OpenGL ES context is created.
-   * The function is passed a single argument `gl` that extends a [WebGLRenderingContext](https://www.khronos.org/registry/webgl/specs/latest/1.0/#5.14) interface.
-   */
-  onContextCreate(gl: ExpoWebGLRenderingContext): void;
-  /**
-   * `GLView` can enable iOS's built-in [multisampling](https://www.khronos.org/registry/OpenGL/extensions/APPLE/APPLE_framebuffer_multisample.txt).
-   * This prop specifies the number of samples to use. Setting this to `0` turns off multisampling.
-   * @platform ios
-   * @default 4
-   */
-  msaaSamples: number;
-  /**
-   * @hidden
-   * A ref callback for the native GLView
-   */
-  // @ts-ignore
-  nativeRef_EXPERIMENTAL?(callback: ComponentOrHandle | null);
-};
 
 // @needsAudit
 export enum GLLoggingOption {
@@ -126,6 +34,3 @@ export enum GLLoggingOption {
    */
   ALL = METHOD_CALLS | GET_ERRORS | RESOLVE_CONSTANTS | TRUNCATE_STRINGS
 }
-export type WebGLObject = {
-  id: number;
-};

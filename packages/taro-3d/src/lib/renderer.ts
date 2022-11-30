@@ -1,6 +1,8 @@
 import { ColorRepresentation, OffscreenCanvas, WebGLRenderer, WebGLRendererParameters } from 'three';
+
+import { ExpoWebGLRenderingContext } from './View3D.types';
 export interface IRendererParameters extends WebGLRendererParameters {
-  gl: WebGLRenderingContext;
+  gl: ExpoWebGLRenderingContext;
   pixelRatio?: number;
   clearColor?: ColorRepresentation;
   width?: number;
