@@ -8,13 +8,23 @@ import { Renderer } from './renderer';
 
 export interface IProps extends ViewProps {
   canvasId?: string;
-  onContextCreate(gl: ExpoWebGLRenderingContext): void;
+  onContextCreate(gl: ExpoWebGLRenderingContext, canvas?: HTMLCanvasElement): void;
 }
 
 const View3D = (props: IProps) => {
   const { canvasId, onContextCreate, ...domProps } = useMemo(() => {
     return { ...props };
   }, [props]);
+
+  document.createElementNS = (namespaceURI: string, tagName: string) => {
+    tagName = tagName.toLowerCase();
+    if (tagName === 'img') {
+      const canvas = Taro.createOffscreenCanvas({});
+      const image = canvas.createImage();
+      return image;
+    }
+    return document.createElementNS(namespaceURI, tagName);
+  };
 
   useEffect(() => {
     setTimeout(() => {
