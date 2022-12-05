@@ -5,3 +5,4 @@ test
 src/**.js
 *.log
 package-lock.json
+src/.DS_Store

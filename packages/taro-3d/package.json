@@ -14,8 +14,7 @@
   },
   "dependencies": {
     "expo-gl": "^12.0.0",
-    "expo-three": "^7.0.0",
-    "three": "^0.142.0"
+    "expo-three": "^7.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.2.0",
@@ -35,10 +34,12 @@
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "react": "^17.0.2",
+    "three": "^0.147.0",
     "typescript": "^4.9.3"
   },
   "peerDependencies": {
-    "@tarojs/taro": "^3.5.7"
+    "@tarojs/taro": "^3.5.7",
+    "three": "^0.142.0"
   },
   "husky": {
     "hooks": {

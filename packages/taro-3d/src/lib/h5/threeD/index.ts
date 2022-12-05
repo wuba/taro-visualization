@@ -1,0 +1,1 @@
+export { TextureLoader } from 'three';

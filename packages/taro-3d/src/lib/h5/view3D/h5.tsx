@@ -1,8 +1,8 @@
 import { View, ViewProps } from '@tarojs/components';
 import React, { useEffect, useMemo, useRef } from 'react';
 
-import { ExpoWebGLRenderingContext } from './View3D.types';
-import { Renderer } from './renderer';
+import { ExpoWebGLRenderingContext } from '../../View3D.types';
+import { Renderer } from '../../renderer';
 
 export interface IProps extends ViewProps {
   canvasId?: string;
