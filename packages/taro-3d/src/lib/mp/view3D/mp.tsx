@@ -1,7 +1,7 @@
 import { Canvas, View, ViewProps } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import * as React from 'react';
-import { useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { ExpoWebGLRenderingContext } from '../../View3D.types';
 import { Renderer } from '../../renderer';
@@ -26,6 +26,8 @@ const View3D = (props: IProps) => {
   //   return document.createElementNS(namespaceURI, tagName);
   // };
 
+  const [canvas, setCanvas] = useState();
+
   useEffect(() => {
     setTimeout(() => {
       const query = Taro.createSelectorQuery();
@@ -34,12 +36,22 @@ const View3D = (props: IProps) => {
         .node()
         .exec((res) => {
           const canvas = res[0].node;
+          setCanvas(canvas);
           const gl = canvas.getContext('webgl') as ExpoWebGLRenderingContext;
           gl.endFrameEXP = () => {};
-          !!props.onContextCreate && props.onContextCreate(gl);
+          !!props.onContextCreate && props.onContextCreate(gl, canvas);
         });
     }, 0);
   }, []);
+
+  const touchStart = useCallback(
+    (e) => {
+      console.log(1111, e);
+    },
+    [canvas]
+  );
+  const touchMove = useCallback((e) => {}, []);
+  const touchEnd = useCallback((e) => {}, []);
 
   return (
     <View {...domProps}>
@@ -49,6 +61,9 @@ const View3D = (props: IProps) => {
         type="webgl"
         width="100%"
         height="100%"
+        onTouchStart={touchStart}
+        onTouchMove={touchMove}
+        onTouchEnd={touchEnd}
       />
     </View>
   );

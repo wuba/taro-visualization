@@ -1,12 +1,13 @@
 import { View, ViewProps } from '@tarojs/components';
 import React, { useEffect, useMemo, useRef } from 'react';
+import { OffscreenCanvas } from 'three';
 
 import { ExpoWebGLRenderingContext } from '../../View3D.types';
 import { Renderer } from '../../renderer';
 
 export interface IProps extends ViewProps {
   canvasId?: string;
-  onContextCreate(gl: ExpoWebGLRenderingContext): void;
+  onContextCreate(gl: ExpoWebGLRenderingContext, canvas: HTMLCanvasElement | OffscreenCanvas): void;
 }
 
 export const View3D = (props: IProps) => {
@@ -27,7 +28,7 @@ export const View3D = (props: IProps) => {
         canvas.width = entries[0].contentRect.width;
         const gl = canvas.getContext('webgl') as ExpoWebGLRenderingContext;
         gl.endFrameEXP = () => {};
-        !!props.onContextCreate && props.onContextCreate(gl);
+        !!props.onContextCreate && props.onContextCreate(gl, canvas);
       });
       viewResizeObserver.observe(view);
     }

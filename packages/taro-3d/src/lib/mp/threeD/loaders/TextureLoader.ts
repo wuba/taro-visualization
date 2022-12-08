@@ -11,6 +11,7 @@ class TextureLoader extends THREE.TextureLoader {
         const image = canvas.createImage();
         return image;
       }
+      if (tagName === 'canvas') return Taro.createOffscreenCanvas({});
       return document.createElementNS(namespaceURI, tagName);
     };
   }
