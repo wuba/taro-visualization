@@ -3,6 +3,8 @@ import Taro from '@tarojs/taro';
 import * as React from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
+import EventTarget from '../../../utils/EventTarget';
+import copyProperties from '../../../utils/copyProperties';
 import { ExpoWebGLRenderingContext } from '../../View3D.types';
 import { Renderer } from '../../renderer';
 
@@ -16,16 +18,6 @@ const View3D = (props: IProps) => {
     return { ...props };
   }, [props]);
 
-  // document.createElementNS = (namespaceURI: string, tagName: string) => {
-  //   tagName = tagName.toLowerCase();
-  //   if (tagName === 'img') {
-  //     const canvas = Taro.createOffscreenCanvas({});
-  //     const image = canvas.createImage();
-  //     return image;
-  //   }
-  //   return document.createElementNS(namespaceURI, tagName);
-  // };
-
   const [canvas, setCanvas] = useState();
 
   useEffect(() => {
@@ -36,7 +28,30 @@ const View3D = (props: IProps) => {
         .node()
         .exec((res) => {
           const canvas = res[0].node;
+          Object.defineProperty(canvas, 'style', {
+            get() {
+              return {
+                width: this.width + 'px',
+                height: this.height + 'px'
+              };
+            }
+          });
+          Object.defineProperty(canvas, 'clientHeight', {
+            get() {
+              return this.height;
+            }
+          });
+          Object.defineProperty(canvas, 'clientWidth', {
+            get() {
+              return this.width;
+            }
+          });
+
           setCanvas(canvas);
+
+          copyProperties(canvas.constructor.prototype, EventTarget.prototype);
+          setCanvas(canvas);
+
           const gl = canvas.getContext('webgl') as ExpoWebGLRenderingContext;
           gl.endFrameEXP = () => {};
           !!props.onContextCreate && props.onContextCreate(gl, canvas);
@@ -46,12 +61,25 @@ const View3D = (props: IProps) => {
 
   const touchStart = useCallback(
     (e) => {
-      console.log(1111, e);
+      setTimeout(() => {
+        canvas &&
+          canvas.dispatchTouchEvent({ ...e.mpEvent, target: canvas, pointerType: 'touch', type: 'pointerdown' });
+      }, 0);
     },
     [canvas]
   );
-  const touchMove = useCallback((e) => {}, []);
-  const touchEnd = useCallback((e) => {}, []);
+  const touchMove = useCallback(
+    (e) => {
+      canvas && canvas.dispatchTouchEvent({ ...e.mpEvent, target: canvas, pointerType: 'touch', type: 'pointermove' });
+    },
+    [canvas]
+  );
+  const touchEnd = useCallback(
+    (e) => {
+      canvas && canvas.dispatchTouchEvent({ ...e.mpEvent, target: canvas, pointerType: 'touch', type: 'pointerup' });
+    },
+    [canvas]
+  );
 
   return (
     <View {...domProps}>
