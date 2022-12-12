@@ -24,7 +24,7 @@ export default class EventTarget {
 
   addEventListener(type, listener, options = {}) {
     let events = _events.get(this);
-    console.log('EventTarget.ts', 'addEventListener', events);
+    // console.log('EventTarget.ts', 'addEventListener', events);
 
     if (!events) {
       events = {};
@@ -72,7 +72,7 @@ export default class EventTarget {
       event.stopPropagation = () => {};
     }
     const listeners = _events.get(this)[event.type];
-    console.log('EventTarget.ts dispatchEvent', event.type, event.target.constructor.prototype);
+    // console.log('EventTarget.ts dispatchEvent', event.type, event.target.constructor.prototype);
     if (listeners) {
       for (let i = 0; i < listeners.length; i++) {
         listeners[i](event);
@@ -84,7 +84,7 @@ export default class EventTarget {
   }
 
   dispatchTouchEvent(e = {}) {
-    const touch = e.changedTouches[0];
+    const touch = e.touches[0] || {};
     const event = {
       isTrusted: true,
       altKey: false,
@@ -93,7 +93,6 @@ export default class EventTarget {
       bubbles: true,
       button: 0,
       buttons: 1,
-      cancelBubble: false,
       cancelable: true,
       clientX: touch.pageX,
       clientY: touch.pageY,
@@ -116,7 +115,7 @@ export default class EventTarget {
       pageX: touch.pageX,
       pageY: touch.pageY,
       path: [],
-      pointerId: touch.identifier + 2,
+      pointerId: e.pointerId,
       pointerType: 'touch',
       pressure: 1,
       relatedTarget: null,
@@ -125,7 +124,6 @@ export default class EventTarget {
       // screenY: 373.828125,
       shiftKey: false,
       sourceCapabilities: null,
-      srcElement: e.target,
       tangentialPressure: 0,
       target: e.target,
       tiltX: 0,
@@ -140,6 +138,7 @@ export default class EventTarget {
       x: touch.x,
       y: touch.y
     };
+    console.log('dispatchTouchEvent', event);
 
     this.dispatchEvent(event);
   }

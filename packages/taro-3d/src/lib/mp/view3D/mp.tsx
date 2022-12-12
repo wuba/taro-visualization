@@ -3,6 +3,7 @@ import Taro from '@tarojs/taro';
 import * as React from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
+import useGetState from '../../../hooks/useGetState';
 import EventTarget from '../../../utils/EventTarget';
 import copyProperties from '../../../utils/copyProperties';
 import { ExpoWebGLRenderingContext } from '../../View3D.types';
@@ -19,6 +20,7 @@ const View3D = (props: IProps) => {
   }, [props]);
 
   const [canvas, setCanvas] = useState();
+  const [pointerId, setPointerId, getPointerId] = useGetState(0);
 
   useEffect(() => {
     setTimeout(() => {
@@ -47,8 +49,6 @@ const View3D = (props: IProps) => {
             }
           });
 
-          setCanvas(canvas);
-
           copyProperties(canvas.constructor.prototype, EventTarget.prototype);
           setCanvas(canvas);
 
@@ -61,37 +61,59 @@ const View3D = (props: IProps) => {
 
   const touchStart = useCallback(
     (e) => {
+      const pointerId = Math.floor(Math.random() * 1000) + 2;
+      setPointerId(pointerId);
+      // console.log(11111,'start', pointerId, e.mpEvent)
       setTimeout(() => {
         canvas &&
-          canvas.dispatchTouchEvent({ ...e.mpEvent, target: canvas, pointerType: 'touch', type: 'pointerdown' });
+          canvas.dispatchTouchEvent({
+            ...e.mpEvent,
+            target: canvas,
+            pointerType: 'touch',
+            type: 'pointerdown',
+            pointerId: pointerId
+          });
       }, 0);
     },
     [canvas]
   );
   const touchMove = useCallback(
     (e) => {
-      canvas && canvas.dispatchTouchEvent({ ...e.mpEvent, target: canvas, pointerType: 'touch', type: 'pointermove' });
+      // console.log(11111,'move', getPointerId(), e.mpEvent)
+      canvas &&
+        canvas.dispatchTouchEvent({
+          ...e.mpEvent,
+          target: canvas,
+          pointerType: 'touch',
+          type: 'pointermove',
+          pointerId: getPointerId()
+        });
     },
     [canvas]
   );
   const touchEnd = useCallback(
     (e) => {
-      canvas && canvas.dispatchTouchEvent({ ...e.mpEvent, target: canvas, pointerType: 'touch', type: 'pointerup' });
+      // console.log(11111,'end', getPointerId(), e.mpEvent)
+      canvas &&
+        canvas.dispatchTouchEvent({
+          ...e.mpEvent,
+          target: canvas,
+          pointerType: 'touch',
+          type: 'pointerup',
+          pointerId: getPointerId()
+        });
     },
     [canvas]
   );
 
   return (
-    <View {...domProps}>
+    <View {...domProps} onTouchStart={touchStart} onTouchMove={touchMove} onTouchEnd={touchEnd}>
       <Canvas
         canvasId={props.canvasId ?? 'view3d'}
         id={props.canvasId ?? 'view3d'}
         type="webgl"
         width="100%"
         height="100%"
-        onTouchStart={touchStart}
-        onTouchMove={touchMove}
-        onTouchEnd={touchEnd}
       />
     </View>
   );
