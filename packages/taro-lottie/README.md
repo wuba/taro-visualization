@@ -103,6 +103,3 @@ View more documentation, FAQ, help, examples, and more at [airbnb.io/lottie](htt
 ![Community](https://github.com/lottie-react-native/lottie-react-native/raw/master/docs/gifs/Community%202_3.gif)
 
 ![Example4](https://github.com/lottie-react-native/lottie-react-native/raw/master/docs/gifs/Example4.gif)
-
-## License
-MIT License
