@@ -58,7 +58,8 @@
   },
   "peerDependencies": {
     "@tarojs/taro": "^3.5.7",
-    "wrn-echarts": "^0.1.2"
+    "wrn-echarts": "^0.1.2",
+    "echarts": "^5.3.3"
   },
   "husky": {
     "hooks": {
