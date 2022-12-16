@@ -1,3 +1,6 @@
+// source from https://github.com/wechat-miniprogram/threejs-miniprogram/blob/master/src/EventTarget.js
+// under MIT License
+
 const _events = new Map();
 
 class Touch {

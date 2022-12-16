@@ -1,3 +1,6 @@
+// source from https://github.com/expo/expo-three/blob/master/src/Renderer.ts
+// under MIT License
+// change some code
 import { ColorRepresentation, OffscreenCanvas, WebGLRenderer, WebGLRendererParameters } from 'three';
 
 import { ExpoWebGLRenderingContext } from './View3D.types';

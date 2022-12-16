@@ -1,3 +1,5 @@
+// source from https://github.com/ecomfe/echarts-for-weixin/blob/master/ec-canvas/wx-canvas.js
+// under BSD 3-Clause License
 export default class WxCanvas {
   constructor(ctx, canvasId, isNew, canvasNode) {
     this.ctx = ctx;

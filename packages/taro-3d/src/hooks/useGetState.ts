@@ -1,5 +1,6 @@
 // source from https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useGetState/index.ts
 // under MIT License
+
 import type { Dispatch, SetStateAction } from 'react';
 import { useCallback, useRef, useState } from 'react';
 
