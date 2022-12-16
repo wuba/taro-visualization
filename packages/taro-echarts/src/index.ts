@@ -8,4 +8,4 @@ if (process.env.TARO_ENV === 'weapp') {
 }
 
 export const Echarts = instance.Echarts;
-export const SVGRenderer = instance.SVGRenderer;
+export const EchartsRenderer = instance.EchartsRenderer;

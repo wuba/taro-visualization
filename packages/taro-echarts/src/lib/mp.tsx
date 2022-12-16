@@ -1,4 +1,4 @@
-import { Canvas, View, ViewProps } from '@tarojs/components';
+import { Canvas, View } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import * as echarts from 'echarts/core';
 import { CanvasRenderer } from 'echarts/renderers';
@@ -47,7 +47,7 @@ function EchartsComponetMP(props: IProps, ref?: any) {
           const chartCanvas = new WxCanvas(ctx, props.canvasId ?? 'i-echarts', true, canvas);
           // @ts-ignore
           echarts.setPlatformAPI({ createCanvas: () => chartCanvas });
-          props.onContextCreate(chartCanvas);
+          chartCanvas && props.onContextCreate(chartCanvas);
         });
     }, 0);
   }, []);
@@ -65,4 +65,4 @@ function EchartsComponetMP(props: IProps, ref?: any) {
   );
 }
 export const Echarts = memo(forwardRef(EchartsComponetMP));
-export const SVGRenderer = CanvasRenderer;
+export const EchartsRenderer = CanvasRenderer;

@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useRef } from 'react';
-import { SkiaChart, SvgChart } from 'wrn-echarts';
-export { SVGRenderer } from 'wrn-echarts';
+import { SkiaChart, SvgChart, SVGRenderer } from 'wrn-echarts';
 
 interface IProps {
   RNRenderType?: 'svg' | 'skia';
@@ -20,3 +19,4 @@ function EchartsComponetRN(props: IProps) {
   return component;
 }
 export const Echarts = EchartsComponetRN;
+export const EchartsRenderer = SVGRenderer;
