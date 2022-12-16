@@ -27,14 +27,13 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "dev": "tsc -p tsconfig.json --watch",
-    "prepare": "husky install"
+    "dev": "tsc -p tsconfig.json --watch"
   },
   "bugs": {
     "url": "https://github.com/flyrui316/taro-visualization/issues"
   },
   "dependencies": {
-    "wrn-echarts": "^0.1.2"
+
   },
   "devDependencies": {
     "@commitlint/cli": "^17.2.0",
@@ -50,7 +49,6 @@
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-react": "^7.31.11",
-    "husky": "^8.0.2",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "react": "^17.0.2",
@@ -58,8 +56,8 @@
   },
   "peerDependencies": {
     "@tarojs/taro": "^3.5.7",
-    "wrn-echarts": "^0.1.2",
-    "echarts": "^5.3.3"
+    "echarts": "^5.3.3",
+    "wrn-echarts": "^0.1.2"
   },
   "husky": {
     "hooks": {
