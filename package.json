@@ -7,6 +7,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build": "yarn clean && lerna run build --stream",
+    "publish": "lerna publish",
     "dev": "lerna run dev --parallel",
     "clean": "lerna run clean --parallel",
     "prepare": "husky install"
