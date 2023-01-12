@@ -1,5 +1,5 @@
 import { Canvas } from '@tarojs/components';
-import { createSelectorQuery } from '@tarojs/taro';
+import { createSelectorQuery, getSystemInfoSync } from '@tarojs/taro';
 import lottie from 'lottie-miniprogram';
 import type { AnimatedLottieViewProps } from 'lottie-react-native';
 import React, { Component } from 'react';
@@ -10,11 +10,11 @@ interface LottieViewState {
 }
 
 class LottieView extends Component<AnimatedLottieViewProps, LottieViewState> {
-  constructor(props) {
+  constructor(props: AnimatedLottieViewProps) {
     super(props);
   }
   id = `lottie-${i++}`;
-  animation;
+  animation: any;
   inited = false;
   static state = {
     inited: false,
@@ -36,7 +36,7 @@ class LottieView extends Component<AnimatedLottieViewProps, LottieViewState> {
       );
     this.animation?.destroy();
   }
-  componentDidUpdate(prevProps): void {
+  componentDidUpdate(prevProps: AnimatedLottieViewProps): void {
     const { progress, speed } = this.props;
     if (prevProps.progress !== progress) {
       this.animation.goToAndPlay(
@@ -57,8 +57,10 @@ class LottieView extends Component<AnimatedLottieViewProps, LottieViewState> {
   }
   setSpeed() {
     const { speed } = this.props;
-    this.animation.setSpeed(Math.abs(speed));
-    this.animation.setDirection(speed > 0 ? 1 : -1);
+    if (speed) {
+      this.animation.setSpeed(Math.abs(speed));
+      this.animation.setDirection(speed > 0 ? 1 : -1);
+    }
   }
   resume() {
     this.animation.play();
@@ -87,8 +89,11 @@ class LottieView extends Component<AnimatedLottieViewProps, LottieViewState> {
             try {
               const canvas = res.node;
               const context = canvas.getContext('2d');
-              canvas.width = parseFloat(width);
-              canvas.height = parseFloat(height);
+              // scale canvas to adapt dpr
+              const dpr = getSystemInfoSync().pixelRatio;
+              canvas.width = parseFloat(width) * dpr;
+              canvas.height = parseFloat(height) * dpr;
+              context.scale(dpr, dpr);
               lottie.setup(canvas);
               this.animation = lottie.loadAnimation({
                 animationData: source,

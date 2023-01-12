@@ -14,12 +14,15 @@ export interface IProps extends ViewProps {
   onContextCreate(gl: ExpoWebGLRenderingContext, canvas?: HTMLCanvasElement): void;
 }
 
+export interface IHTMLCanvasElement extends HTMLCanvasElement {
+  dispatchTouchEvent: (e: any) => void;
+}
 const View3D = (props: IProps) => {
   const { canvasId, onContextCreate, ...domProps } = useMemo(() => {
     return { ...props };
   }, [props]);
 
-  const [canvas, setCanvas] = useState();
+  const [canvas, setCanvas] = useState<IHTMLCanvasElement>();
   const [pointerId, setPointerId, getPointerId] = useGetState(0);
 
   useEffect(() => {
@@ -60,10 +63,9 @@ const View3D = (props: IProps) => {
   }, []);
 
   const touchStart = useCallback(
-    (e) => {
+    (e: any) => {
       const pointerId = Math.floor(Math.random() * 1000) + 2;
       setPointerId(pointerId);
-      // console.log(11111,'start', pointerId, e.mpEvent)
       setTimeout(() => {
         canvas &&
           canvas.dispatchTouchEvent({
@@ -78,7 +80,7 @@ const View3D = (props: IProps) => {
     [canvas]
   );
   const touchMove = useCallback(
-    (e) => {
+    (e: any) => {
       // console.log(11111,'move', getPointerId(), e.mpEvent)
       canvas &&
         canvas.dispatchTouchEvent({
@@ -92,7 +94,7 @@ const View3D = (props: IProps) => {
     [canvas]
   );
   const touchEnd = useCallback(
-    (e) => {
+    (e: any) => {
       // console.log(11111,'end', getPointerId(), e.mpEvent)
       canvas &&
         canvas.dispatchTouchEvent({

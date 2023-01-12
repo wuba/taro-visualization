@@ -13,7 +13,6 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "lerna": "^6.0.3",
     "@commitlint/cli": "^17.2.0",
     "@commitlint/config-conventional": "^17.2.0",
     "@tarojs/taro": "^3.5.7",
@@ -27,6 +26,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-react": "^7.31.11",
     "husky": "^8.0.2",
+    "lerna": "^6.0.3",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "react": "^17.0.2",

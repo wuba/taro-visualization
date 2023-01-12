@@ -33,7 +33,8 @@
     "url": "https://github.com/flyrui316/taro-visualization/issues"
   },
   "dependencies": {
-
+    "echarts": "^5.4.1",
+    "wrn-echarts": "^0.1.3"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.2.0",
@@ -55,9 +56,7 @@
     "typescript": "^4.9.3"
   },
   "peerDependencies": {
-    "@tarojs/taro": "^3.5.7",
-    "echarts": "^5.3.3",
-    "wrn-echarts": "^0.1.2"
+    "@tarojs/taro": "^3.5.7"
   },
   "husky": {
     "hooks": {

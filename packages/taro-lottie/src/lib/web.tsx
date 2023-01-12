@@ -7,8 +7,8 @@ interface LottieViewState {
 }
 
 class LottieView extends Component<AnimatedLottieViewProps, LottieViewState> {
-  el = null;
-  animation = null;
+  el!: HTMLDivElement;
+  animation: any;
   static defaultProps = {
     loop: true,
     autoPlay: false,
@@ -26,7 +26,7 @@ class LottieView extends Component<AnimatedLottieViewProps, LottieViewState> {
       );
     this.animation.destroy();
   }
-  componentDidUpdate(prevProps): void {
+  componentDidUpdate(prevProps: AnimatedLottieViewProps): void {
     const { progress, speed } = this.props;
     if (prevProps.progress !== progress) {
       this.animation.goToAndPlay(
@@ -47,8 +47,10 @@ class LottieView extends Component<AnimatedLottieViewProps, LottieViewState> {
   }
   setSpeed() {
     const { speed } = this.props;
-    this.animation.setSpeed(Math.abs(speed));
-    this.animation.setDirection(speed > 0 ? 1 : -1);
+    if (speed) {
+      this.animation.setSpeed(Math.abs(speed));
+      this.animation.setDirection(speed > 0 ? 1 : -1);
+    }
   }
   resume() {
     this.animation.play();
@@ -79,7 +81,7 @@ class LottieView extends Component<AnimatedLottieViewProps, LottieViewState> {
     return (
       <div
         style={style}
-        ref={(c) => {
+        ref={(c: HTMLDivElement) => {
           this.el = c;
         }}
       />
