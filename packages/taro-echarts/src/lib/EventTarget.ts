@@ -4,6 +4,14 @@
 const _events = new Map();
 
 class Touch {
+  identifier: any;
+  force: any;
+  pageX: any;
+  pageY: any;
+  clientX: any;
+  clientY: any;
+  screenX: any;
+  screenY: any;
   constructor(touch: any) {
     // CanvasTouch{identifier, x, y}
     // Touch{identifier, pageX, pageY, clientX, clientY, force}
@@ -25,7 +33,7 @@ export default class EventTarget {
     _events.set(this, {});
   }
 
-  addEventListener(type, listener, options = {}) {
+  addEventListener(type: string | number, listener: any, options: any = {}) {
     let events = _events.get(this);
     // console.log('EventTarget.ts', 'addEventListener', events);
 
@@ -49,7 +57,7 @@ export default class EventTarget {
     }
   }
 
-  removeEventListener(type, listener) {
+  removeEventListener(type: string | number, listener: any) {
     const events = _events.get(this);
 
     if (events) {
@@ -66,7 +74,7 @@ export default class EventTarget {
     }
   }
 
-  dispatchEvent(event = {}) {
+  dispatchEvent(event: any = {}) {
     const type = event.type;
     if (typeof event.preventDefault !== 'function') {
       event.preventDefault = () => {};
@@ -86,7 +94,7 @@ export default class EventTarget {
     }
   }
 
-  dispatchTouchEvent(e = {}) {
+  dispatchTouchEvent(e: any = {}) {
     const touch = e.touches[0] || {};
     const event = {
       isTrusted: true,

@@ -4,15 +4,16 @@ import * as THREE from 'three';
 class TextureLoader extends THREE.TextureLoader {
   constructor() {
     super();
-    document.createElementNS = (namespaceURI: string, tagName: string) => {
-      tagName = tagName.toLowerCase();
-      if (tagName === 'img') {
+    // @ts-ignore
+    document.createElementNS = (namespaceURI: string, qualifiedName: string) => {
+      qualifiedName = qualifiedName.toLowerCase();
+      if (qualifiedName === 'img') {
         const canvas = Taro.createOffscreenCanvas({});
         const image = canvas.createImage();
-        return image;
+        return image as unknown as HTMLElement;
       }
-      if (tagName === 'canvas') return Taro.createOffscreenCanvas({});
-      return document.createElementNS(namespaceURI, tagName);
+      if (qualifiedName === 'canvas') return Taro.createOffscreenCanvas({}) as unknown as HTMLElement;
+      return document.createElementNS(namespaceURI, qualifiedName) as HTMLElement;
     };
   }
 }
