@@ -1,5 +1,5 @@
 import { Canvas } from '@tarojs/components';
-import { createSelectorQuery } from '@tarojs/taro';
+import { createSelectorQuery, getSystemInfoSync } from '@tarojs/taro';
 import lottie from 'lottie-miniprogram';
 import type { AnimatedLottieViewProps } from 'lottie-react-native';
 import React, { Component } from 'react';
@@ -87,8 +87,11 @@ class LottieView extends Component<AnimatedLottieViewProps, LottieViewState> {
             try {
               const canvas = res.node;
               const context = canvas.getContext('2d');
-              canvas.width = parseFloat(width);
-              canvas.height = parseFloat(height);
+              // scale canvas to adapt dpr
+              const dpr = getSystemInfoSync().pixelRatio;
+              canvas.width = parseFloat(width) * dpr;
+              canvas.height = parseFloat(height) * dpr;
+              context.scale(dpr, dpr);
               lottie.setup(canvas);
               this.animation = lottie.loadAnimation({
                 animationData: source,
