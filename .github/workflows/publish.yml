@@ -2,7 +2,7 @@ name: publish
 on:
   push:
     branches:
-      - workflows
+      - main
   pull_request:
     branches:
       - main
