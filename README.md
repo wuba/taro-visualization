@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Taro-visualization is consists of three packages taro-lottie, taro-3d and taro-echarts, which is used for visual programming. And all of the three packages are cross-platform, and support users to develop WeChat mini-programs, H5 and React Native applications for Taro.
+Taro-visualization is consists of three packages taro-lottie, taro-3d and taro-charts, which is used for visual programming. And all of the three packages are cross-platform, and support users to develop WeChat mini-programs, H5 and React Native applications for Taro.
 
 ## Installation
 
@@ -13,7 +13,7 @@ yarn add taro-lottie
 or 
 yarn add taro-3d
 or
-yarn add taro-echarts
+yarn add taro-charts
 ```
 
 ## Usage
@@ -26,9 +26,9 @@ See the [taro-lottie REAME](./packages/taro-lottie/README.md) to learn how to us
 
 See the [taro-3d REAME](./packages/taro-3d/README.md) to learn how to use taro-3d
 
-### taro-echarts
+### taro-charts
 
-See the [taro-echarts REAME](./packages/taro-echarts/README.md) to learn how to use taro-echarts
+See the [taro-charts REAME](./packages/taro-echarts/README.md) to learn how to use taro-charts
 
 ## Contributing
 
