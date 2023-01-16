@@ -1,11 +1,11 @@
-# taro-echarts
+# taro-charts
 
 Echarts component for Taro, support WeChat mini-programs, H5 and React Native application.
 
 ## Installing
 
 ```
-yarn add taro-echarts
+yarn add taro-charts
 ```
 
 ## Basic Usage
