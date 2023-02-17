@@ -1,17 +1,17 @@
 {
   "name": "taro-charts",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Echarts for taro",
   "keywords": [
     "echarts",
     "taro",
     "react-native"
   ],
-  "homepage": "https://github.com/wuba/taro-visualization/tree/main/packages/taro-echarts",
+  "homepage": "https://github.com/wuba/taro-visualization/tree/main/packages/taro-charts",
   "license": "Apache-2.0",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
-  "repository": "https://github.com/wuba/taro-visualization/tree/main/packages/taro-echarts",
+  "repository": "https://github.com/wuba/taro-visualization/tree/main/packages/taro-charts",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "dev": "tsc -p tsconfig.json --watch"

@@ -28,7 +28,7 @@ See the [taro-3d REAME](./packages/taro-3d/README.md) to learn how to use taro-3
 
 ### taro-charts
 
-See the [taro-charts REAME](./packages/taro-echarts/README.md) to learn how to use taro-charts
+See the [taro-charts REAME](./packages/taro-charts/README.md) to learn how to use taro-charts
 
 ## Contributing
 

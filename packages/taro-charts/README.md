@@ -22,7 +22,7 @@ import {
   TooltipComponent,
   GridComponent
 } from 'echarts/components';
-import {Echarts, EchartsRenderer} from 'taro-echarts'
+import {Echarts, EchartsRenderer} from 'taro-charts'
 import { useEffect, useRef, useState } from 'react';
 
 // register extensions
