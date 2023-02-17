@@ -14,8 +14,7 @@
   "repository": "https://github.com/wuba/taro-visualization/tree/main/packages/taro-echarts",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "dev": "tsc -p tsconfig.json --watch",
-    "prepare": "husky install"
+    "dev": "tsc -p tsconfig.json --watch"
   },
   "dependencies": {
     "echarts": "^5.4.1",
