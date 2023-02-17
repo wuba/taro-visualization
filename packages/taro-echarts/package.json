@@ -11,20 +11,11 @@
   "license": "Apache-2.0",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
-  },
-  "files": [
-    "lib"
-  ],
   "repository": "https://github.com/wuba/taro-visualization/tree/main/packages/taro-echarts",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "dev": "tsc -p tsconfig.json --watch"
-  },
-  "bugs": {
-    "url": "https://github.com/flyrui316/taro-visualization/issues"
+    "dev": "tsc -p tsconfig.json --watch",
+    "prepare": "husky install"
   },
   "dependencies": {
     "echarts": "^5.4.1",
