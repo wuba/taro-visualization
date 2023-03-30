@@ -7,11 +7,17 @@ export default class WxCanvas {
   isNew: boolean;
   canvasNode: any;
   event: any;
-  constructor(ctx: any, canvasId: string, isNew: boolean, canvasNode: any) {
+  events: {
+    [key: string]: any
+  }
+  constructor(ctx: any, canvasId: string, isNew: boolean, canvasNode: any, events: {
+    [key: string]: any
+  }) {
     this.ctx = ctx;
     this.canvasId = canvasId;
     this.chart = null;
     this.isNew = isNew;
+    this.events = events
     if (isNew) {
       this.canvasNode = canvasNode;
     } else {
@@ -40,7 +46,9 @@ export default class WxCanvas {
     this.chart = chart;
   }
 
-  addEventListener() {
+  addEventListener(type: string, callback: () => void) {
+
+    // return this.events.addEventListener(type, callback)
     // noop
   }
 
@@ -79,33 +87,38 @@ export default class WxCanvas {
     this.event = {};
     const eventNames = [
       {
-        wxName: 'touchStart',
-        ecName: 'mousedown'
+        wxName: 'touchstart',
+        ecName: ['mousedown', 'mousemove']
       },
       {
-        wxName: 'touchMove',
-        ecName: 'mousemove'
+        wxName: 'touchmove',
+        ecName: ['mousemove']
       },
       {
-        wxName: 'touchEnd',
-        ecName: 'mouseup'
+        wxName: 'touchend',
+        ecName: ['mouseup', 'click']
       },
-      {
-        wxName: 'touchEnd',
-        ecName: 'click'
-      }
+      // {
+      //   wxName: 'click',
+      //   ecName: ['click']
+      // }
     ];
     eventNames.forEach((name) => {
-      this.event[name.wxName] = (e: { touches: any[] }) => {
-        const touch = e.touches[0];
-        this.chart.getZr().handler.dispatch(name.ecName, {
-          zrX: name.wxName === 'tap' ? touch.clientX : touch.x,
-          zrY: name.wxName === 'tap' ? touch.clientY : touch.y,
-          preventDefault: () => {},
-          stopImmediatePropagation: () => {},
-          stopPropagation: () => {}
-        });
-      };
+      this.events.addEventListener(name.wxName, (e: { changedTouches: any[] }) => {
+        if(this.chart) {
+          const touch = e.changedTouches[0];
+          name.ecName.forEach(ecName => {
+            this.chart.getZr().handler.dispatch(ecName, {
+              zrX: touch.x,
+              zrY: touch.y,
+              preventDefault: () => { },
+              stopImmediatePropagation: () => { },
+              stopPropagation: () => { }
+            });
+          })
+        }
+
+      })
     });
   }
 
