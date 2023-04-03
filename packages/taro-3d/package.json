@@ -22,6 +22,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.2.0",
     "@commitlint/config-conventional": "^17.2.0",
+    "@tarojs/components": "^3.4.12",
     "@tarojs/taro": "^3.5.7",
     "@types/node": "^18.11.9",
     "@types/react": "^18.0.25",
@@ -42,6 +43,7 @@
   },
   "peerDependencies": {
     "@tarojs/taro": "^3.5.7",
+    "@tarojs/components": "^3.4.12",
     "three": "^0.142.0"
   },
   "husky": {

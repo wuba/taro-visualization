@@ -6,4 +6,3 @@ build
 test
 src/**.js
 coverage
-package-lock.json

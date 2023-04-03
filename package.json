@@ -5,11 +5,6 @@
     "packages/*"
   ],
   "scripts": {
-    "bootstrap": "lerna bootstrap",
-    "build": "yarn clean && lerna run build --stream",
-    "publish": "lerna publish",
-    "dev": "lerna run dev --parallel",
-    "clean": "lerna run clean --parallel",
     "prepare": "husky install"
   },
   "devDependencies": {
@@ -26,7 +21,6 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-react": "^7.31.11",
     "husky": "^8.0.2",
-    "lerna": "^6.0.3",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "react": "^17.0.2",
@@ -46,5 +40,9 @@
       "prettier --write",
       "eslint --fix"
     ]
-  }
+  },
+  "engines": {
+    "node": ">=14.6.0"
+  },
+  "packageManager": "pnpm@7.30.5"
 }
