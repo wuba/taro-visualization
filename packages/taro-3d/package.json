@@ -10,8 +10,7 @@
   "keywords": [],
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "dev": "tsc -p tsconfig.json --watch",
-    "prepare": "husky install"
+    "dev": "tsc -p tsconfig.json --watch"
   },
   "dependencies": {
     "base64-arraybuffer": "^1.0.2",
@@ -34,7 +33,6 @@
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-react": "^7.31.11",
-    "husky": "^8.0.2",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "react": "^17.0.2",

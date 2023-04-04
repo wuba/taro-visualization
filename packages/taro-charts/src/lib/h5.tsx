@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 
 interface IProps {
   canvasId?: string;
-  onContextCreate: any;
+  onContextCreate: (canvas: HTMLCanvasElement | null) => void;
 }
 
 function EchartsComponetH5(props: IProps) {
@@ -36,12 +36,12 @@ function EchartsComponetH5(props: IProps) {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    canvasRef.current && props.onContextCreate(canvas);
+    canvasRef.current && onContextCreate(canvas);
   }, [canvasRef]);
 
   return (
     <View {...domProps} ref={viewRef}>
-      <canvas id={props?.canvasId ?? 'i-echarts'} ref={canvasRef} />
+      <canvas id={canvasId ?? 'i-echarts'} ref={canvasRef} />
     </View>
   );
 }

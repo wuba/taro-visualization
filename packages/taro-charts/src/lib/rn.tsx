@@ -1,5 +1,5 @@
+import { SkiaChart, SvgChart, SVGRenderer } from '@wuba/react-native-echarts';
 import React, { useEffect, useMemo, useRef } from 'react';
-import { SkiaChart, SvgChart, SVGRenderer } from 'wrn-echarts';
 
 interface IProps {
   RNRenderType?: 'svg' | 'skia';
