@@ -1,4 +1,4 @@
-import { Canvas, View, ITouchEvent } from '@tarojs/components';
+import { Canvas, ITouchEvent, View } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import * as echarts from 'echarts/core';
 import { CanvasRenderer } from 'echarts/renderers';
@@ -16,36 +16,38 @@ function EchartsComponetMP(props: IProps, ref?: any) {
     return { ...props };
   }, [props]);
 
-  const events = useRef((() => {
-    const callbacks: {
-      [key: string]: ((event: ITouchEvent) => void)[]
-    } = {}
-    const target = (name: string, e: ITouchEvent) => {
-      if(callbacks[name]) {
-        callbacks[name].map(callback => callback(e))
-      }
-    }
-    return {
-      click: (e: any) => {
-        target('click', e)
-      },
-      touchstart: (e: any) => {
-        target('touchstart', e)
-      },
-      touchmove: (e: any) => {
-        target('touchmove', e)
-      },
-      touchend: (e: any) => {
-        target('touchend', e)
-      },
-      addEventListener: (type: string, callback: (event: ITouchEvent) => void) => {
-        if (!callbacks[type]) {
-          callbacks[type] = []
+  const events = useRef(
+    (() => {
+      const callbacks: {
+        [key: string]: ((event: ITouchEvent) => void)[];
+      } = {};
+      const target = (name: string, e: ITouchEvent) => {
+        if (callbacks[name]) {
+          callbacks[name].map((callback) => callback(e));
         }
-        callbacks[type].push(callback)
-      }
-    }
-  })())
+      };
+      return {
+        click: (e: any) => {
+          target('click', e);
+        },
+        touchstart: (e: any) => {
+          target('touchstart', e);
+        },
+        touchmove: (e: any) => {
+          target('touchmove', e);
+        },
+        touchend: (e: any) => {
+          target('touchend', e);
+        },
+        addEventListener: (type: string, callback: (event: ITouchEvent) => void) => {
+          if (!callbacks[type]) {
+            callbacks[type] = [];
+          }
+          callbacks[type].push(callback);
+        }
+      };
+    })()
+  );
 
   useEffect(() => {
     setTimeout(() => {

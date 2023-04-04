@@ -5,12 +5,8 @@
     "packages/*"
   ],
   "scripts": {
-    "bootstrap": "lerna bootstrap",
-    "build": "yarn clean && lerna run build --stream",
-    "publish": "lerna publish",
-    "dev": "lerna run dev --parallel",
-    "clean": "lerna run clean --parallel",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "release": "node ./scripts/release.js"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.2.0",
@@ -20,16 +16,20 @@
     "@types/react": "^18.0.25",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "@typescript-eslint/parser": "^5.43.0",
+    "chalk": "^4.1.2",
     "eslint": "^8.28.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-react": "^7.31.11",
+    "figlet": "1",
+    "fs-extra": "^11.1.1",
     "husky": "^8.0.2",
-    "lerna": "^6.0.3",
+    "inquirer": "8",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "react": "^17.0.2",
+    "shelljs": "^0.8.5",
     "typescript": "^4.9.3"
   },
   "husky": {
@@ -46,5 +46,9 @@
       "prettier --write",
       "eslint --fix"
     ]
-  }
+  },
+  "engines": {
+    "node": ">=14.6.0"
+  },
+  "packageManager": "pnpm@7.30.5"
 }
