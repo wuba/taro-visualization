@@ -54,16 +54,25 @@ export default function TaorEcharts({ option ={
   } }) {
     const ref = useRef<any>(null);
     const [chart, setChart] = useState<echarts.ECharts>();
+
+    const clickedCharts = useCallback(()=>{
+      chart?.on('click', function(params) {
+        // do something
+        console.log(params)
+    });
+    },[chart])
+
     useEffect(()=>{
+      clickedCharts()
       return () => {
-        // 小程序端执行卸载报错
         if (process.env.TARO_ENV !== 'weapp') {
-          chart.current?.dispose()
+          chart?.dispose()
         }
       }
     },[chart])
+    
     return <Echarts 
-      style={{flex: 1, height: 300, width: 300 }} 
+      style={{flex: 1, height: E_HEIGHT, width: E_WIDTH }} 
       RNRenderType='svg' // RN端需要指定渲染引擎
       canvasId='如果要渲染多个图表 需要指定不同的id'  
       onContextCreate={(canvas)=>{
