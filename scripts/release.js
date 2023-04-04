@@ -58,9 +58,9 @@ const buildPackage = ({ packageName }) => {
 };
 
 const publishPackage = async ({ packageName }) => {
-  const version = await readJson(path.join(cwd, 'packages', packageName, 'package.json'));
+  const pkgJson = await readJson(path.join(cwd, 'packages', packageName, 'package.json'));
   /** ================ npm 发包 =================== */
-  console.log(chalk.green(`${packageName}@${version} ~~npm~~ 包发布中，请耐心等待...`));
+  console.log(chalk.green(`${packageName}@${pkgJson.version} ~~npm~~ 包发布中，请耐心等待...`));
   //    const npmPublishRes = shell.exec(`pnpm -F ${packageName} publish`,{silent:true})
   const npmPublishRes = shell.exec(`pnpm -F ${packageName} publish`);
 
