@@ -61,7 +61,7 @@ const publishPackage = async ({ packageName }) => {
   console.log(chalk.green(`${packageName}@${pkgJson.version} 发布中，请耐心等待...`));
   const npmPublishRes = shell.exec(`pnpm -F ${packageName} publish`);
   if (npmPublishRes.code !== 0 || npmPublishRes.stdout !== `+ ${packageName}@${pkgJson.version}\n`) {
-    console.log(npmPublishRes.stderr, chalk.red(`${packageName}@${pkgJson.version} 发布失败`));
+    console.log(npmPublishRes.stderr || npmPublishRes.stdout, chalk.red(`${packageName}@${pkgJson.version} 发布失败`));
     shell.exit(1);
   } else {
     console.log(chalk.green(`${packageName}@${pkgJson.version} 发布成功 !`));
@@ -70,12 +70,12 @@ const publishPackage = async ({ packageName }) => {
 const run = async () => {
   try {
     init();
-    //   checkGit();
+    checkGit();
     const answers = await askQuestions();
     buildPackage(answers);
     await publishPackage(answers);
   } catch (error) {
-    console.log(1234, error);
+    console.log(error);
   }
 };
 
