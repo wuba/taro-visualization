@@ -34,7 +34,7 @@ const E_WIDTH = windowWidth;
 
 export default function LoupanView() {
   useEffect(() => {
-    setNavigationBarTitle({ title: '基础折线图' });
+    setNavigationBarTitle({ title: '基础柱状图' });
   }, []);
 
   const option = useMemo(()=>{
