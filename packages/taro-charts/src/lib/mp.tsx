@@ -2,20 +2,17 @@ import { Canvas, ITouchEvent, View } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import * as echarts from 'echarts/core';
 import { CanvasRenderer } from 'echarts/renderers';
-import React, { forwardRef, memo, useEffect, useMemo, useRef } from 'react';
+import React, { forwardRef, memo, useEffect, useRef, useState } from 'react';
 
 import EventTarget from './EventTarget';
 import copyProperties from './copyProperties';
 import WxCanvas from './wx-canvas';
 interface IProps {
   canvasId?: string;
-  onContextCreate: any;
+  onContextCreate: (canvas: unknown) => void;
 }
 function EchartsComponetMP(props: IProps, ref?: any) {
-  const { canvasId, onContextCreate, ...domProps } = useMemo(() => {
-    return { ...props };
-  }, [props]);
-
+  const [canvas, setCanvas] = useState<HTMLCanvasElement>();
   const events = useRef(
     (() => {
       const callbacks: {
@@ -81,17 +78,17 @@ function EchartsComponetMP(props: IProps, ref?: any) {
           // @ts-ignore
           echarts.setPlatformAPI({ createCanvas: () => chartCanvas });
           chartCanvas && props.onContextCreate(chartCanvas);
+          setCanvas(canvas);
         });
     }, 0);
   }, []);
   return (
-    <View {...domProps}>
+    <View style={{ width: canvas?.style.width, height: canvas?.style.height }}>
       <Canvas
         canvasId={props.canvasId ?? 'i-echarts'}
         id={props.canvasId ?? 'i-echarts'}
         type="2d"
-        width="100%"
-        height="100%"
+        style={{ width: canvas?.style.width, height: canvas?.style.height }}
         ref={ref}
         onClick={events.current.click}
         onTouchStart={events.current.touchstart}

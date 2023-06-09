@@ -1,4 +1,3 @@
-import { View } from '@tarojs/components';
 import { CanvasRenderer } from 'echarts/renderers';
 import React, { useEffect, useRef } from 'react';
 import { useMemo } from 'react';
@@ -10,29 +9,10 @@ interface IProps {
 
 function EchartsComponetH5(props: IProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const viewRef = useRef<HTMLDivElement>(null);
 
-  const { canvasId, onContextCreate, ...domProps } = useMemo(() => {
+  const { canvasId, onContextCreate } = useMemo(() => {
     return { ...props };
   }, [props]);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const view = viewRef.current;
-    let viewResizeObserver: ResizeObserver;
-    if (view && canvas) {
-      viewResizeObserver = new ResizeObserver((entries) => {
-        canvas.height = entries[0].contentRect.height;
-        canvas.width = entries[0].contentRect.width;
-      });
-      viewResizeObserver.observe(view);
-    }
-    return () => {
-      if (viewResizeObserver && view) {
-        viewResizeObserver.unobserve(view);
-      }
-    };
-  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -40,9 +20,9 @@ function EchartsComponetH5(props: IProps) {
   }, [canvasRef]);
 
   return (
-    <View {...domProps} ref={viewRef}>
+    <div style={{ width: canvasRef.current?.width, height: canvasRef.current?.height }}>
       <canvas id={canvasId ?? 'i-echarts'} ref={canvasRef} />
-    </View>
+    </div>
   );
 }
 export const Echarts = EchartsComponetH5;

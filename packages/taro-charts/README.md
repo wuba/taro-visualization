@@ -11,80 +11,83 @@ yarn add taro-charts
 ## Basic Usage
 
 ```tsx
-import Taro from '@tarojs/taro';
+import Taro,{setNavigationBarTitle} from '@tarojs/taro';
 import * as echarts from 'echarts/core';
 import {
-  BarChart,
+    BarChart,
 } from 'echarts/charts';
-
 import {
-  TitleComponent,
-  TooltipComponent,
   GridComponent
 } from 'echarts/components';
 import {Echarts, EchartsRenderer} from 'taro-charts'
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
-// register extensions
 echarts.use([
-    TitleComponent,
-    TooltipComponent,
-    GridComponent,
+  GridComponent,
     EchartsRenderer,
     BarChart,
   ])
-  
-  const E_HEIGHT = 250;
-  const E_WIDTH = 300;
 
-export default function TaorEcharts({ option ={
-    xAxis: {
-      type: 'category',
-      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-    },
-    yAxis: {
-      type: 'value',
-    },
-    series: [
-      {
-        data: [120, 200, 150, 80, 70, 110, 130],
-        type: 'bar',
-      },
-    ],
-  } }) {
-    const ref = useRef<any>(null);
-    const [chart, setChart] = useState<echarts.ECharts>();
+const {windowWidth} = Taro.getSystemInfoSync()
+const E_HEIGHT = 300;
+const E_WIDTH = windowWidth;
 
-    const clickedCharts = useCallback(()=>{
-      chart?.on('click', function(params) {
-        // do something
-        console.log(params)
-    });
-    },[chart])
+export default function LoupanView() {
+  useEffect(() => {
+    setNavigationBarTitle({ title: '基础折线图' });
+  }, []);
 
-    useEffect(()=>{
-      clickedCharts()
-      return () => {
-        if (process.env.TARO_ENV !== 'weapp') {
-          chart?.dispose()
-        }
+  const option = useMemo(()=>{
+    return{
+        xAxis: {
+            type: 'category',
+            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+          },
+          yAxis: {
+            type: 'value'
+          },
+          series: [
+            {
+              data: [150, 230, 224, 218, 135, 147, 260],
+              type: 'bar'
+            }
+        ]
+    }
+  },[])
+  const [chart, setChart] = useState<echarts.ECharts>();
+
+  useEffect(()=>{
+    clickedCharts()
+    return ()=> {
+      if (process.env.TARO_ENV !== 'weapp') {
+        chart?.dispose()
       }
-    },[chart])
-    
-    return <Echarts 
-      style={{flex: 1, height: E_HEIGHT, width: E_WIDTH }} 
-      RNRenderType='svg' // RN端需要指定渲染引擎
-      canvasId='如果要渲染多个图表 需要指定不同的id'  
-      onContextCreate={(canvas)=>{
-            const charts = echarts.init(canvas, 'light', {
+    }
+  },[chart])
+
+  const clickedCharts = useCallback(()=>{
+    chart?.on('click', function(params) {
+      console.log(params)
+  });
+  },[chart])
+
+  return <Echarts
+          // 只有RN端需要指定RNRenderType的类型('skia'|'svg')
+          // Please specify the RNRenderType('skia'|'svg'), when you use ReactNative
+          RNRenderType='skia'
+          // 如果要渲染多个图表，需要指定不同的canvasId
+          // Please specify different canvasId, when you want to use multiple charts, 
+          canvasId='chart'
+          onContextCreate={(canvas)=>{
+            const chart = echarts.init(canvas, 'light', {
               renderer: 'svg',
               width: E_WIDTH,
               height: E_HEIGHT,
-          });
-          canvas.setChart?.(charts);
-          charts.setOption(option);
-          setChart(charts)
-      }}
-    />;
+            });
+            canvas.setChart?.(chart);
+            chart.setOption(option);
+            setChart(chart)
+          }}
+        />;
   }
 ```

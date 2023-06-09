@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useRef } from 'react';
 
 interface IProps {
   RNRenderType?: 'svg' | 'skia';
-  onContextCreate: any;
+  onContextCreate: (canvas: unknown) => void;
 }
 function EchartsComponetRN(props: IProps) {
   const chartRef = useRef();
