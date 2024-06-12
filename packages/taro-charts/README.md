@@ -81,6 +81,7 @@ export default function LoupanView() {
           onContextCreate={(canvas)=>{
             const chart = echarts.init(canvas, 'light', {
               renderer: 'svg',
+              devicePixelRatio: Taro.getSystemInfoSync().pixelRatio, // 可以解决小程序下图表模糊的问题
               width: E_WIDTH,
               height: E_HEIGHT,
             });
