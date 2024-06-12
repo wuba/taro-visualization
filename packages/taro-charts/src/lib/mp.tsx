@@ -51,29 +51,34 @@ function EchartsComponetMP(props: IProps, ref?: any) {
       const query = Taro.createSelectorQuery();
       query
         .select(`#${props.canvasId ?? 'i-echarts'}`)
-        .node()
+        .fields({ node: true, size: true })
         .exec((res) => {
           const canvas = res[0].node;
+          const ctx = canvas.getContext('2d');
+          const dpr = Taro.getSystemInfoSync().pixelRatio;
+          canvas.width = res[0].width * dpr;
+          canvas.height = res[0].height * dpr;
           Object.defineProperty(canvas, 'style', {
             get() {
               return {
-                width: this.width + 'px',
-                height: this.height + 'px'
+                width: this.width / dpr + 'px',
+                height: this.height / dpr + 'px'
               };
             }
           });
           Object.defineProperty(canvas, 'clientHeight', {
             get() {
-              return this.height;
+              return this.height / dpr + 'px';
             }
           });
           Object.defineProperty(canvas, 'clientWidth', {
             get() {
-              return this.width;
+              return this.width / dpr + 'px';
             }
           });
+
           copyProperties(canvas.constructor.prototype, EventTarget.prototype);
-          const ctx = canvas.getContext('2d');
+
           const chartCanvas = new WxCanvas(ctx, props.canvasId ?? 'i-echarts', true, canvas, events.current);
           // @ts-ignore
           echarts.setPlatformAPI({ createCanvas: () => chartCanvas });
